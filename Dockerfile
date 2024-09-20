@@ -3,13 +3,20 @@
 FROM python:3.9-slim-buster
 
 # Set the working directory
-WORKDIR /python-docker
+WORKDIR /api-flask
+
+# Copy the necessary files and directories into the container
+COPY api/ static/ util/ .env app.py requirements.txt /api-flask/
+COPY api/ /api-flask/api/
+COPY static/ /api-flask/static/
+COPY util/ /api-flask/util/
+COPY .env app.py requirements.txt  /api-flask/
 
 # Copy the requirements file
 COPY requirements.txt .
 
-# Install dependencies
-RUN pip3 install -r requirements.txt
+# Upgrade pip and install Python dependencies
+RUN pip3 install --upgrade pip && pip install --no-cache-dir -r requirements.txt
 
 # Copy the application code
 COPY . .

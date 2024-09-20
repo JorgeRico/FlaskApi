@@ -1,5 +1,5 @@
 from flask_restful import Resource
-from flask import request
+from flask import request, jsonify
 import json
 
 books = [{"id": 1, "title": "Java book"},
@@ -7,7 +7,7 @@ books = [{"id": 1, "title": "Java book"},
 
 class BooksGETResource(Resource):
     def get(self):
-        return books
+        return jsonify(books)
 
 class BookGETResource(Resource):
     def get(self, id):
